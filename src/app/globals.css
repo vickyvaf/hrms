@@ -31,7 +31,8 @@ body {
 }
 
 .card:hover {
-  transform: none; /* Removed hover lift for flatter look */
+  transform: none;
+  /* Removed hover lift for flatter look */
   box-shadow: none !important;
 }
 
@@ -42,14 +43,16 @@ body {
   box-shadow: none !important;
 }
 
-.form-control, .form-select {
+.form-control,
+.form-select {
   border-radius: 6px;
   padding: 0.6rem 1rem;
   border: 1px solid #e2e8f0;
   box-shadow: none !important;
 }
 
-.form-control:focus, .form-select:focus {
+.form-control:focus,
+.form-select:focus {
   border-color: var(--primary-color);
   box-shadow: none !important;
   outline: 2px solid rgba(37, 99, 235, 0.1);
@@ -74,7 +77,8 @@ body {
   margin: 0.2rem 0.8rem;
 }
 
-.sidebar .nav-link:hover, .sidebar .nav-link.active {
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
   background: rgba(255, 255, 255, 0.1);
   color: white;
 }
@@ -103,8 +107,13 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* Hide spin buttons */
@@ -114,11 +123,10 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-/* NO gradients as per PRD and User Request */
-.bg-gradient-primary { background: var(--primary-color) !important; }
-
 /* Override any default bootstrap shadows */
-.shadow, .shadow-sm, .shadow-lg {
+.shadow,
+.shadow-sm,
+.shadow-lg {
   box-shadow: none !important;
 }
 
@@ -126,7 +134,7 @@ input::-webkit-inner-spin-button {
 .no-caret.dropdown-toggle::after {
   display: none !important;
 }
+
 .no-caret .dropdown-toggle::after {
   display: none !important;
 }
-

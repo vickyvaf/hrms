@@ -21,14 +21,14 @@ interface PegawaiState {
   statusKawin: string;
   jumlahAnak: string;
   tanggalLahir: Date | null;
-  tempatLahirId: number | null;
+  tempatLahirId: string | null;
   tempatLahirNama: string;
   tanggalMasuk: Date | null;
   provinsi: string;
   kabupatenNama: string;
-  kecamatanId: number | null;
+  kecamatanId: string | null;
   kecamatanNama: string;
-  kalurahanId: number | null;
+  kalurahanId: string | null;
   kalurahanNama: string;
   alamatDetail: string;
   latitude: string;
@@ -214,7 +214,7 @@ export default function PegawaiForm({ initialData, isEdit }: { initialData?: any
     }
   };
 
-  const loadKalurahan = async (kecId: number) => {
+  const loadKalurahan = async (kecId: string) => {
     try {
       const res = await fetch(`/api/wilayah/kalurahan?kecamatanId=${kecId}`);
       const result = await res.json();
@@ -239,13 +239,13 @@ export default function PegawaiForm({ initialData, isEdit }: { initialData?: any
 
     try {
       const formData = new FormData();
-      Object.keys(state).forEach(key => {
+      (Object.keys(state) as Array<keyof PegawaiState>).forEach(key => {
         if (key === 'pendidikan') {
           formData.append(key, JSON.stringify(state[key]));
         } else if (key === 'foto') {
-          if (state[key]) formData.append(key, state[key]);
+          if (state[key]) formData.append(key, state[key] as File);
         } else if (key === 'tanggalLahir' || key === 'tanggalMasuk') {
-          formData.append(key, state[key]?.toISOString() || '');
+          formData.append(key, (state[key] as Date | null)?.toISOString() || '');
         } else if (key !== 'errors' && key !== 'fotoPreview') {
           formData.append(key, String(state[key] ?? ''));
         }
@@ -411,7 +411,7 @@ export default function PegawaiForm({ initialData, isEdit }: { initialData?: any
                     <Form.Label className="small fw-bold d-block">Tanggal Lahir <span className="text-danger">*</span></Form.Label>
                     <DatePicker
                       selected={state.tanggalLahir}
-                      onChange={(date) => handleFieldChange('tanggalLahir', date)}
+                      onChange={(date: Date | null) => handleFieldChange('tanggalLahir', date)}
                       className="form-control w-100"
                       dateFormat="dd/MM/yyyy"
                       placeholderText="DD/MM/YYYY"
@@ -539,7 +539,7 @@ export default function PegawaiForm({ initialData, isEdit }: { initialData?: any
                     <Form.Label className="small fw-bold d-block">Tanggal Masuk <span className="text-danger">*</span></Form.Label>
                     <DatePicker
                       selected={state.tanggalMasuk}
-                      onChange={(date) => handleFieldChange('tanggalMasuk', date)}
+                      onChange={(date: Date | null) => handleFieldChange('tanggalMasuk', date)}
                       className="form-control w-100"
                       dateFormat="dd/MM/yyyy"
                       placeholderText="DD/MM/YYYY"
