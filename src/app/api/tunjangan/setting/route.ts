@@ -5,6 +5,41 @@ import { successResponse, errorResponse } from '@/lib/api-response';
 import { createLog } from '@/lib/activity-log';
 import { ModulLog, AksiLog } from '@prisma/client';
 
+/**
+ * @swagger
+ * /api/tunjangan/setting:
+ *   get:
+ *     summary: Get all transport allowance settings
+ *     tags: [Tunjangan]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Tunjangan settings fetched successfully
+ *   post:
+ *     summary: Create a new transport allowance setting
+ *     tags: [Tunjangan]
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - baseFare
+ *             properties:
+ *               baseFare:
+ *                 type: number
+ *               keterangan:
+ *                 type: string
+ *               isActive:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: Setting created successfully
+ */
 export const GET = withAuth(
   async (req, ctx, user) => {
     const data = await prisma.settingTunjanganTransport.findMany({

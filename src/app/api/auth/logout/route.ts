@@ -4,6 +4,18 @@ import { successResponse } from '@/lib/api-response';
 import { createLog } from '@/lib/activity-log';
 import { ModulLog, AksiLog } from '@prisma/client';
 
+/**
+ * @swagger
+ * /api/auth/logout:
+ *   post:
+ *     summary: Logout user
+ *     tags: [Auth]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Logged out successfully
+ */
 export const POST = withAuth(
   async (req, ctx, user) => {
     await createLog({

@@ -7,6 +7,56 @@ import { sendOtpEmail } from '@/lib/mailer';
 import { signToken } from '@/lib/jwt';
 import { successResponse, errorResponse } from '@/lib/api-response';
 
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: User login
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - identifier
+ *               - password
+ *               - captchaAnswer
+ *               - sessionKey
+ *             properties:
+ *               identifier:
+ *                 type: string
+ *                 description: Username, email, or phone number
+ *               password:
+ *                 type: string
+ *               captchaAnswer:
+ *                 type: string
+ *               sessionKey:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: OTP sent to your email
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     tempToken:
+ *                       type: string
+ *                       description: Short-lived token for OTP verification
+ *       400:
+ *         description: Invalid or expired captcha
+ *       401:
+ *         description: Invalid credentials
+ */
 export async function POST(req: NextRequest) {
   try {
     const { identifier, password, captchaAnswer, sessionKey } = await req.json();

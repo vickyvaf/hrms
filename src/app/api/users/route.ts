@@ -5,6 +5,67 @@ import { successResponse, errorResponse } from '@/lib/api-response';
 import bcrypt from 'bcrypt';
 import { ModulLog, AksiLog } from '@prisma/client';
 
+/**
+ * @swagger
+ * /api/users:
+ *   get:
+ *     summary: Get list of users
+ *     tags: [Users]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: role
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Users fetched successfully
+ *   post:
+ *     summary: Create a new user
+ *     tags: [Users]
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - email
+ *               - password
+ *               - role
+ *             properties:
+ *               pegawaiId:
+ *                 type: string
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *               isActive:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: User created successfully
+ */
 export const GET = withAuth(
   async (req, ctx, user) => {
     const { searchParams } = new URL(req.url);

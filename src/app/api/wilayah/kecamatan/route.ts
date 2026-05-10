@@ -2,6 +2,25 @@ import { NextRequest } from 'next/server';
 import prisma from '@/lib/prisma';
 import { successResponse } from '@/lib/api-response';
 
+/**
+ * @swagger
+ * /api/wilayah/kecamatan:
+ *   get:
+ *     summary: Get districts
+ *     tags: [Wilayah]
+ *     parameters:
+ *       - in: query
+ *         name: kabupatenId
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Kecamatan fetched successfully
+ */
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const kabupatenId = searchParams.get('kabupatenId');

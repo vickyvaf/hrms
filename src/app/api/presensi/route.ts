@@ -3,6 +3,42 @@ import { withAuth } from '@/lib/with-auth';
 import prisma from '@/lib/prisma';
 import { successResponse } from '@/lib/api-response';
 
+/**
+ * @swagger
+ * /api/presensi:
+ *   get:
+ *     summary: Get list of attendance records
+ *     tags: [Presensi]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Search by employee name
+ *       - in: query
+ *         name: bulan
+ *         schema:
+ *           type: integer
+ *       - in: query
+ *         name: tahun
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Presensi fetched successfully
+ */
 export const GET = withAuth(
   async (req, ctx, user) => {
     const { searchParams } = new URL(req.url);

@@ -5,6 +5,36 @@ import { exportPresensiToExcel } from '@/lib/excel-parser';
 import { createLog } from '@/lib/activity-log';
 import { ModulLog, AksiLog } from '@prisma/client';
 
+/**
+ * @swagger
+ * /api/presensi/export:
+ *   get:
+ *     summary: Export attendance records to Excel
+ *     tags: [Presensi]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: bulan
+ *         schema:
+ *           type: integer
+ *       - in: query
+ *         name: tahun
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Excel file
+ *         content:
+ *           application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+ *             schema:
+ *               type: string
+ *               format: binary
+ */
 export const GET = withAuth(
   async (req, ctx, user) => {
     try {

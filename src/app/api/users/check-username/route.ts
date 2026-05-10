@@ -3,6 +3,28 @@ import { withAuth } from '@/lib/with-auth';
 import prisma from '@/lib/prisma';
 import { successResponse } from '@/lib/api-response';
 
+/**
+ * @swagger
+ * /api/users/check-username:
+ *   get:
+ *     summary: Check if a username is available
+ *     tags: [Users]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: username
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: excludeId
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Availability checked successfully
+ */
 export const GET = withAuth(
   async (req) => {
     const { searchParams } = new URL(req.url);

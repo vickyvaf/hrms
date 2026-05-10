@@ -8,6 +8,68 @@ import { writeFile } from 'fs/promises';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
+/**
+ * @swagger
+ * /api/pegawai/{id}:
+ *   get:
+ *     summary: Get employee detail
+ *     tags: [Pegawai]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Pegawai detail fetched
+ *       404:
+ *         description: Pegawai not found
+ *   put:
+ *     summary: Update employee
+ *     tags: [Pegawai]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nama:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               foto:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Pegawai updated successfully
+ *   delete:
+ *     summary: Delete employee (soft delete)
+ *     tags: [Pegawai]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Pegawai deleted successfully
+ */
 export const GET = withAuth(
   async (req, ctx, user) => {
     const { id } = await ctx.params;

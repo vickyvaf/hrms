@@ -7,6 +7,28 @@ import { successResponse, errorResponse } from '@/lib/api-response';
 import { createLog } from '@/lib/activity-log';
 import { ModulLog, AksiLog, LokasiGedung, StatusKehadiran } from '@prisma/client';
 
+/**
+ * @swagger
+ * /api/presensi/import:
+ *   post:
+ *     summary: Import attendance records from Excel
+ *     tags: [Presensi]
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Presensi imported successfully
+ */
 export const POST = withAuth(
   async (req, ctx, user) => {
     try {

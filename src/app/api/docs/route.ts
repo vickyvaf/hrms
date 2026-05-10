@@ -10,6 +10,16 @@ export async function GET() {
         title: 'HRMS API Docs',
         version: '1.0',
       },
+      tags: [
+        { name: 'Auth', description: 'Authentication endpoints' },
+        { name: 'Dashboard', description: 'Dashboard statistics and data' },
+        { name: 'Pegawai', description: 'Employee management' },
+        { name: 'Presensi', description: 'Attendance management' },
+        { name: 'Tunjangan', description: 'Transport allowance management' },
+        { name: 'Users', description: 'User management' },
+        { name: 'Wilayah', description: 'Regional data' },
+        { name: 'Logs', description: 'Activity logs' },
+      ],
       components: {
         securitySchemes: {
           BearerAuth: {
@@ -19,7 +29,11 @@ export async function GET() {
           },
         },
       },
-      security: [],
+      security: [
+        {
+          BearerAuth: [],
+        },
+      ],
     },
   });
 

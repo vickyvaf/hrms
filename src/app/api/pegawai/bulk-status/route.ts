@@ -5,6 +5,34 @@ import { successResponse, errorResponse } from '@/lib/api-response';
 import { createLog } from '@/lib/activity-log';
 import { ModulLog, AksiLog } from '@prisma/client';
 
+/**
+ * @swagger
+ * /api/pegawai/bulk-status:
+ *   post:
+ *     summary: Bulk update employee status
+ *     tags: [Pegawai]
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - ids
+ *               - isActive
+ *             properties:
+ *               ids:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               isActive:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: Bulk status update successful
+ */
 export const POST = withAuth(
   async (req, ctx, user) => {
     try {

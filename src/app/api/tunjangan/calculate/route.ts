@@ -6,6 +6,32 @@ import { createLog } from '@/lib/activity-log';
 import { ModulLog, AksiLog, JenisPegawai, StatusKehadiran } from '@prisma/client';
 import { calculateDistance, calculateTunjanganTransport, OFFICE_COORDS } from '@/lib/tunjangan-calc';
 
+/**
+ * @swagger
+ * /api/tunjangan/calculate:
+ *   post:
+ *     summary: Calculate transport allowance for a specific period
+ *     tags: [Tunjangan]
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - bulan
+ *               - tahun
+ *             properties:
+ *               bulan:
+ *                 type: integer
+ *               tahun:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: Berhasil menghitung tunjangan
+ */
 export const POST = withAuth(
   async (req, ctx, user) => {
     try {

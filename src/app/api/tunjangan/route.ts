@@ -3,6 +3,39 @@ import { withAuth } from '@/lib/with-auth';
 import prisma from '@/lib/prisma';
 import { successResponse } from '@/lib/api-response';
 
+/**
+ * @swagger
+ * /api/tunjangan:
+ *   get:
+ *     summary: Get list of transport allowance records
+ *     tags: [Tunjangan]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: bulan
+ *         schema:
+ *           type: integer
+ *       - in: query
+ *         name: tahun
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Tunjangan fetched successfully
+ */
 export const GET = withAuth(
   async (req, ctx, user) => {
     const { searchParams } = new URL(req.url);

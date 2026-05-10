@@ -3,6 +3,18 @@ import prisma from '@/lib/prisma';
 import { successResponse } from '@/lib/api-response';
 import { JenisPegawai, GenderType } from '@prisma/client';
 
+/**
+ * @swagger
+ * /api/dashboard:
+ *   get:
+ *     summary: Get dashboard statistics and data
+ *     tags: [Dashboard]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Dashboard data fetched successfully
+ */
 export const GET = withAuth(
   async (req, ctx, user) => {
     // All authorized roles (SUPERADMIN, MANAGER_HRD, ADMIN_HRD) can see dashboard stats

@@ -4,6 +4,52 @@ import { verifyOtp } from '@/lib/otp';
 import { successResponse, errorResponse } from '@/lib/api-response';
 import prisma from '@/lib/prisma';
 
+/**
+ * @swagger
+ * /api/auth/verify-otp:
+ *   post:
+ *     summary: Verify OTP and complete login
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - tempToken
+ *               - otpCode
+ *             properties:
+ *               tempToken:
+ *                 type: string
+ *               otpCode:
+ *                 type: string
+ *               rememberMe:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     token:
+ *                       type: string
+ *                     role:
+ *                       type: string
+ *       400:
+ *         description: Invalid or expired OTP
+ *       401:
+ *         description: Invalid or expired temporary token
+ */
 export async function POST(req: NextRequest) {
   try {
     const { tempToken, otpCode, rememberMe } = await req.json();

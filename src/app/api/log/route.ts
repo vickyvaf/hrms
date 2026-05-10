@@ -3,6 +3,39 @@ import { withAuth } from '@/lib/with-auth';
 import prisma from '@/lib/prisma';
 import { successResponse } from '@/lib/api-response';
 
+/**
+ * @swagger
+ * /api/log:
+ *   get:
+ *     summary: Get activity logs
+ *     tags: [Logs]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: usernames
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: moduls
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Activity logs fetched successfully
+ */
 export const GET = withAuth(
   async (req, ctx, user) => {
     const { searchParams } = new URL(req.url);

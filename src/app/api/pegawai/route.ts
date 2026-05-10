@@ -8,6 +8,74 @@ import { writeFile } from 'fs/promises';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
+/**
+ * @swagger
+ * /api/pegawai:
+ *   get:
+ *     summary: Get list of employees
+ *     tags: [Pegawai]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Search by name or NIP
+ *       - in: query
+ *         name: jabatan
+ *         schema:
+ *           type: string
+ *         description: Comma separated Jabatan types
+ *       - in: query
+ *         name: jenis
+ *         schema:
+ *           type: string
+ *         description: Comma separated JenisPegawai types
+ *     responses:
+ *       200:
+ *         description: Pegawai list fetched
+ *   post:
+ *     summary: Create a new employee
+ *     tags: [Pegawai]
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nip:
+ *                 type: string
+ *               nama:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               foto:
+ *                 type: string
+ *                 format: binary
+ *               jabatan:
+ *                 type: string
+ *               departemen:
+ *                 type: string
+ *               jenisPegawai:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Pegawai created successfully
+ */
 export const GET = withAuth(
   async (req, ctx, user) => {
     const { searchParams } = new URL(req.url);

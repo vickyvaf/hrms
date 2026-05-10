@@ -5,6 +5,31 @@ import { successResponse, errorResponse } from '@/lib/api-response';
 import { createLog } from '@/lib/activity-log';
 import { ModulLog, AksiLog } from '@prisma/client';
 
+/**
+ * @swagger
+ * /api/pegawai/bulk-delete:
+ *   post:
+ *     summary: Bulk delete employees
+ *     tags: [Pegawai]
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - ids
+ *             properties:
+ *               ids:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *     responses:
+ *       200:
+ *         description: Bulk delete successful
+ */
 export const POST = withAuth(
   async (req, ctx, user) => {
     try {
