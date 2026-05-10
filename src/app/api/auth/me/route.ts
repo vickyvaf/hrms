@@ -26,7 +26,7 @@ export const GET = withAuth(async (req, ctx, user) => {
     username: userData.username,
     email: userData.email,
     role: userData.role,
-    nama: userData.pegawai.nama,
-    fotoUrl: userData.pegawai.fotoUrl,
+    nama: userData.pegawai?.nama || 'Unknown',
+    fotoUrl: userData.pegawai?.fotoUrl || null,
   });
 });
