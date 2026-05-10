@@ -49,7 +49,12 @@ RUN apk add --no-cache \
     pango \
     jpeg \
     libpng \
-    giflib
+    giflib \
+    fontconfig \
+    ttf-dejavu \
+    font-noto
+
+RUN fc-cache -fv
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
@@ -64,6 +69,7 @@ RUN chown nextjs:nodejs .next
 # Copy the standalone build and static files
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
+COPY --from=builder --chown=nextjs:nodejs /app/src ./src
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
