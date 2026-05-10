@@ -6,7 +6,6 @@ HR Management System (HRMS)
 - Database: PostgreSQL
 - ORM: Prisma
 - CSS Framework: Bootstrap 5 + Bootstrap Icons
-  (FORBIDDEN Tailwind CSS, FORBIDDEN any gradient styles)
 - Auth: JWT (Bearer token), support "Remember Me"
 - Containerization: Docker + Docker Compose
 - API Docs: Swagger via next-swagger-doc + swagger-ui-react
@@ -473,7 +472,6 @@ Create README.md containing:
    "too many connections" in development (Next.js hot reload)
 6. All file names are kebab-case
 7. Use TypeScript strict mode
-8. No gradient styles in any CSS
-9. All API responses use format:
+8. All API responses use format:
    { success: boolean, message: string, data: any, meta?: { page, limit, total } }
-10. Default office coordinates: lat -7.7956, lng 110.3695 (Sleman, Yogyakarta)
+9. Default office coordinates: lat -7.7956, lng 110.3695 (Sleman, Yogyakarta)

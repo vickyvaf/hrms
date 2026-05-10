@@ -13,9 +13,9 @@ A full-stack Human Resource Management System built with Next.js 16, Prisma, and
 - Swagger API documentation
 
 ## Tech Stack
-- **Framework:** Next.js 14 (App Router)
+- **Framework:** Next.js 16 (App Router)
 - **Database:** PostgreSQL + Prisma ORM
-- **Styling:** Bootstrap 5 (No Tailwind, No Gradients)
+- **Styling:** Bootstrap 5
 - **Auth:** JWT + OTP (Nodemailer)
 - **Tools:** Canvas (Captcha), PDFKit (PDF export), XLSX (Excel)
 
