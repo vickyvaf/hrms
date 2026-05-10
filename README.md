@@ -2,6 +2,14 @@
 
 A full-stack Human Resource Management System built with Next.js 16, Prisma, and PostgreSQL.
 
+## Preview
+<img width="1667" height="954" alt="Screenshot 2026-05-10 at 15 45 06" src="https://github.com/user-attachments/assets/31792e43-f703-4dfe-9212-7d0dc4bbafcf" />
+<img width="1669" height="955" alt="Screenshot 2026-05-10 at 15 45 26" src="https://github.com/user-attachments/assets/a530bdf5-931e-466f-a231-1b9f8eb9379c" />
+<img width="1667" height="955" alt="Screenshot 2026-05-10 at 15 45 40" src="https://github.com/user-attachments/assets/beffd822-d4a8-434c-9ebe-902fc12c1e3b" />
+<img width="1664" height="953" alt="Screenshot 2026-05-10 at 15 46 01" src="https://github.com/user-attachments/assets/a6299025-37bc-4f76-a58f-580efe6a6c57" />
+<img width="1664" height="954" alt="Screenshot 2026-05-10 at 15 46 13" src="https://github.com/user-attachments/assets/12557612-237a-4d2e-bc39-88f5f88461fd" />
+
+
 ## Features
 - Two-step authentication (Credentials + Captcha -> OTP)
 - Role-based access control (SUPERADMIN, MANAGER_HRD, ADMIN_HRD)
