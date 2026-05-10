@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
   const data = await prisma.kecamatan.findMany({
     where: {
       AND: [
-        kabupatenId ? { kabupatenId: parseInt(kabupatenId) } : {},
+        kabupatenId ? { kabupatenId } : {},
         search ? { nama: { contains: search, mode: 'insensitive' } } : {},
       ]
     },

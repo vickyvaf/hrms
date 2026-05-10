@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
   }
 
   const data = await prisma.kalurahan.findMany({
-    where: { kecamatanId: parseInt(kecamatanId) },
+    where: { kecamatanId },
     orderBy: { nama: 'asc' },
   });
   return successResponse('Kalurahan fetched', data);

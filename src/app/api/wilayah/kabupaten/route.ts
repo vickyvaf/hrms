@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
   const data = await prisma.kabupaten.findMany({
     where: {
       AND: [
-        provinsiId ? { provinsiId: parseInt(provinsiId) } : {},
+        provinsiId ? { provinsiId } : {},
         search ? { nama: { contains: search, mode: 'insensitive' } } : {},
       ]
     },
