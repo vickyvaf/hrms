@@ -114,6 +114,9 @@ importers:
       '@types/react-select':
         specifier: ^5.0.1
         version: 5.0.1(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@types/swagger-ui-react':
+        specifier: ^5.18.0
+        version: 5.18.0
       '@types/uuid':
         specifier: ^11.0.0
         version: 11.0.0
@@ -1192,6 +1195,9 @@ packages:
 
   '@types/swagger-jsdoc@6.0.4':
     resolution: {integrity: sha512-W+Xw5epcOZrF/AooUM/PccNMSAFOKWZA5dasNyMujTwsBkU74njSJBpvCCJhHAJ95XRMzQrrW844Btu0uoetwQ==}
+
+  '@types/swagger-ui-react@5.18.0':
+    resolution: {integrity: sha512-c2M9adVG7t28t1pq19K9Jt20VLQf0P/fwJwnfcmsVVsdkwCWhRmbKDu+tIs0/NGwJ/7GY8lBx+iKZxuDI5gDbw==}
 
   '@types/tough-cookie@4.0.5':
     resolution: {integrity: sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA==}
@@ -5781,6 +5787,10 @@ snapshots:
   '@types/stack-utils@2.0.3': {}
 
   '@types/swagger-jsdoc@6.0.4': {}
+
+  '@types/swagger-ui-react@5.18.0':
+    dependencies:
+      '@types/react': 19.2.14
 
   '@types/tough-cookie@4.0.5': {}
 
