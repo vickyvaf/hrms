@@ -1,0 +1,266 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Provinsi {
+  id        String      @id
+  nama      String
+  kabupaten Kabupaten[]
+}
+
+model Kabupaten {
+  id         String      @id
+  nama       String
+  provinsiId String
+  provinsi   Provinsi    @relation(fields: [provinsiId], references: [id])
+  kecamatan  Kecamatan[]
+}
+
+model Kecamatan {
+  id          String      @id
+  nama        String
+  kabupatenId String
+  kalurahan   Kalurahan[]
+  kabupaten   Kabupaten   @relation(fields: [kabupatenId], references: [id])
+}
+
+model Kalurahan {
+  id          String    @id
+  nama        String
+  kecamatanId String
+  kecamatan   Kecamatan @relation(fields: [kecamatanId], references: [id])
+}
+
+model Pegawai {
+  id            String               @id @default(uuid()) @db.Uuid
+  nip           String               @unique
+  nama          String
+  email         String               @unique
+  nomorHp       String
+  fotoUrl       String?
+  jabatan       JabatanType
+  departemen    DepartemenType
+  jenisPegawai  JenisPegawai
+  gender        GenderType
+  statusKawin   StatusKawin
+  jumlahAnak    Int                  @default(0)
+  tanggalLahir  DateTime
+  tempatLahirId String
+  tanggalMasuk  DateTime
+  provinsi      String
+  kabupatenNama String
+  kecamatanId   String
+  kalurahanId   String
+  alamatDetail  String
+  latitude      Decimal?             @db.Decimal(10, 8)
+  longitude     Decimal?             @db.Decimal(11, 8)
+  isActive      Boolean              @default(true)
+  deletedAt     DateTime?
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+  pendidikan    Pendidikan[]
+  presensi      Presensi[]
+  tunjangan     TunjanganTransport[]
+  users         User[]
+}
+
+model Pendidikan {
+  id         String  @id @default(uuid()) @db.Uuid
+  pegawaiId  String  @db.Uuid
+  jenjang    String
+  institusi  String
+  jurusan    String
+  tahunLulus Int
+  pegawai    Pegawai @relation(fields: [pegawaiId], references: [id])
+}
+
+model User {
+  id            String        @id @default(uuid()) @db.Uuid
+  pegawaiId     String?       @db.Uuid
+  nama          String?
+  username      String        @unique
+  email         String        @unique
+  nomorHp       String
+  password      String
+  role          Role
+  isActive      Boolean       @default(true)
+  lastLogin     DateTime?
+  rememberToken String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  activityLogs  ActivityLog[]
+  otpSessions   OtpSession[]
+  pegawai       Pegawai?      @relation(fields: [pegawaiId], references: [id])
+}
+
+model OtpSession {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  otpCode   String
+  expiresAt DateTime
+  isUsed    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model CaptchaSession {
+  id         String   @id @default(uuid()) @db.Uuid
+  sessionKey String   @unique
+  answer     String
+  expiresAt  DateTime
+  isUsed     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}
+
+model SettingTunjanganTransport {
+  id         String   @id @default(uuid()) @db.Uuid
+  baseFare   Decimal  @db.Decimal(10, 2)
+  keterangan String?
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model TunjanganTransport {
+  id              String   @id @default(uuid()) @db.Uuid
+  pegawaiId       String   @db.Uuid
+  bulan           Int
+  tahun           Int
+  baseFare        Decimal  @db.Decimal(10, 2)
+  jarakKm         Decimal  @db.Decimal(10, 2)
+  jarakKmBulatkan Int
+  jumlahHariMasuk Int
+  totalTunjangan  Decimal  @db.Decimal(10, 2)
+  keterangan      String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  pegawai         Pegawai  @relation(fields: [pegawaiId], references: [id])
+
+  @@unique([pegawaiId, bulan, tahun])
+}
+
+model Presensi {
+  id              String           @id @default(uuid()) @db.Uuid
+  pegawaiId       String           @db.Uuid
+  tanggal         DateTime         @db.Date
+  lokasiCheckin   LokasiGedung?
+  lokasiCheckout  LokasiGedung?
+  waktuCheckin    DateTime?
+  waktuCheckout   DateTime?
+  statusKehadiran StatusKehadiran
+  durasiJam       Decimal?         @db.Decimal(4, 1)
+  statusTerpenuhi Boolean          @default(false)
+  verifikasi      StatusVerifikasi @default(PENDING)
+  verifikator     Verifikator?
+  keterangan      String?
+  bulan           Int
+  tahun           Int
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  pegawai         Pegawai          @relation(fields: [pegawaiId], references: [id])
+
+  @@unique([pegawaiId, tanggal])
+}
+
+model ActivityLog {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String?  @db.Uuid
+  username  String
+  modul     ModulLog
+  aksi      AksiLog
+  deskripsi String
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  SUPERADMIN
+  MANAGER_HRD
+  ADMIN_HRD
+}
+
+enum JabatanType {
+  MANAGER
+  STAF
+  MAGANG
+  KARYAWAN
+}
+
+enum DepartemenType {
+  MARKETING
+  HRD
+  PRODUCTION
+  EXECUTIVE
+  COMMISSIONER
+}
+
+enum JenisPegawai {
+  KONTRAK
+  TETAP
+  MAGANG
+}
+
+enum StatusKawin {
+  KAWIN
+  TIDAK_KAWIN
+}
+
+enum GenderType {
+  PRIA
+  WANITA
+}
+
+enum ModulLog {
+  LOGIN
+  LOGOUT
+  USER
+  PEGAWAI
+  TUNJANGAN
+  SETTING_TUNJANGAN
+  PRESENSI
+  LOG
+  DASHBOARD
+}
+
+enum AksiLog {
+  LOGIN
+  LOGOUT
+  CREATE
+  READ
+  UPDATE
+  DELETE
+  IMPORT
+  DOWNLOAD
+}
+
+enum StatusVerifikasi {
+  DISETUJUI
+  DITOLAK
+  PENDING
+}
+
+enum Verifikator {
+  LEAD
+  MANAGER
+  HRD
+}
+
+enum StatusKehadiran {
+  HADIR
+  CUTI
+  IZIN
+  UNPAID_LEAVE
+}
+
+enum LokasiGedung {
+  GEDUNG_UTAMA
+  GEDUNG_A
+  GEDUNG_B
+}
